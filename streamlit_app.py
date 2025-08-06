@@ -36,28 +36,28 @@ if agree:
 # Búsqueda por título
 sidebar.subheader("Buscar filmes por título")
 myname = sidebar.text_input('Título del filme')
-search_button = sidebar.button("Buscar")
+search_button = sidebar.button("Buscar filmes")
 
 if search_button:
     if myname:
         if not data.empty:
             filtered_data_byname = data[data['name'].str.contains(myname, case=False, na=False)]
             count_row = filtered_data_byname.shape[0]
-            st.write(f"Total de filmes encontrados: {count_row}")
+            st.write(f"Total de filmes mostrados: {count_row}")
             if not filtered_data_byname.empty:
                 st.dataframe(filtered_data_byname[['name', 'genre', 'director', 'company']])
             else:
-                sidebar.info("No se encontraron filmes con ese título.")
+                st.info("No se encontraron filmes con ese título.")
         else:
-            sidebar.info("No hay datos para buscar.")
+            st.info("No hay datos para buscar.")
     else:
-        sidebar.warning("Por favor, ingresa un título para buscar.")
+        st.warning("Por favor, ingresa un título para buscar.")
 
 # Filtrar por director
 sidebar.subheader("Filtrar por director")
 if not data.empty:
     selected_director = sidebar.selectbox("Seleccionar director:", data['director'].unique())
-    btnFilterbyDirector = sidebar.button('Filtrar por director')
+    btnFilterbyDirector = sidebar.button('Filtrar director')
 
     if btnFilterbyDirector:
         filtered_data_bydirector = data[data['director'] == selected_director]
@@ -65,14 +65,15 @@ if not data.empty:
         st.write(f"Total de filmes: {count_row}")
         st.dataframe(filtered_data_bydirector[['name', 'genre', 'director', 'company']])
 else:
-    sidebar.info("No hay datos para filtrar por director.")
+    st.info("No hay datos para filtrar por director.")
 
 # Insertar nuevo filme
 sidebar.subheader("Insertar nuevo filme")
 name = sidebar.text_input("Nombre del filme")
 company = sidebar.text_input("Compañía")
-genre = sidebar.text_input("Género")
 director = sidebar.text_input("Director")
+genre = sidebar.text_input("Género")
+
 
 submit = sidebar.button("Crear nuevo filme")
 
@@ -86,9 +87,9 @@ if submit:
             "genre": genre,
             "director": director
         })
-        sidebar.success(f"El filme '{name}' ha sido agregado correctamente.")
+        st.success(f"El filme '{name}' ha sido agregado correctamente.")
         
         # Recargar datos para actualizar la tabla y búsquedas
         data = load_all_data()
     else:
-        sidebar.warning("Por favor, completa todos los campos para crear un nuevo filme.")
+        st.warning("Por favor, completa todos los campos para crear un nuevo filme.")
