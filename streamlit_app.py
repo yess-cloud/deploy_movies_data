@@ -7,7 +7,7 @@ import json
 # Cargar credenciales y conectar a Firestore
 key_dict = json.loads(st.secrets["textkey"])
 creds = service_account.Credentials.from_service_account_info(key_dict)
-db = firestore.Client(credentials=creds, project="movies-project")
+db = firestore.Client(credentials=creds, project="movies-project-data")
 
 st.header("Netflix App")
 
