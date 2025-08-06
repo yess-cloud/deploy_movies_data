@@ -73,10 +73,10 @@ else:
 
 # Componente para insertar nuevo filme
 sidebar.subheader("Insertar nuevo filme")
-name = sidebar.text_input("Nombre del filme")
-company = sidebar.text_input("Compañía")
+company = sidebar.text_input("Company")
+name = sidebar.text_input("Name")
 director = sidebar.text_input("Director")
-genre = sidebar.text_input("Género")
+genre = sidebar.text_input("Genre")
 
 submit = sidebar.button("Crear nuevo filme")
 
@@ -84,8 +84,8 @@ if submit:
     if name and company and genre and director:
         doc_ref = db.collection("movies").document(name)
         doc_ref.set({
-            "name": name,
             "company": company,
+            "name": name,
             "director": director,
             "genre": genre
         })
