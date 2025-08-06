@@ -90,6 +90,6 @@ if submit:
             "genre": genre
         })
         sidebar.success(f"El filme '{name}' ha sido agregado correctamente.")
-        sidebar.experimental_rerun()
+        st.experimental_rerun()
     else:
         sidebar.warning("Por favor, completa todos los campos para crear un nuevo filme.")
