@@ -82,14 +82,15 @@ submit = sidebar.button("Crear nuevo filme")
 
 if submit:
     if name and company and genre and director:
+        st.write("Agregando filme a Firestore...")
         doc_ref = db.collection("movies").document(name)
         doc_ref.set({
-            "company": company,
             "name": name,
-            "director": director,
-            "genre": genre
+            "company": company,
+            "genre": genre,
+            "director": director
         })
-        sidebar.success(f"El filme '{name}' ha sido agregado correctamente.")
+        st.success(f"El filme '{name}' ha sido agregado correctamente.")
         st.experimental_rerun()
     else:
-        sidebar.warning("Por favor, completa todos los campos para crear un nuevo filme.")
+        st.warning("Por favor, completa todos los campos para crear un nuevo filme.")
