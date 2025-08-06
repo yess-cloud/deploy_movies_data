@@ -54,7 +54,7 @@ if search_button:
         sidebar.warning("Por favor, ingresa un título para buscar.")
 
 # Filtrar por director
-st.subheader("Filtrar por director")
+sidebar.subheader("Filtrar por director")
 if not data.empty:
     selected_director = sidebar.selectbox("Seleccionar director:", data['director'].unique())
     btnFilterbyDirector = sidebar.button('Filtrar por director')
