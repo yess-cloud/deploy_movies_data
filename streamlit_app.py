@@ -83,17 +83,21 @@ submit = sidebar.button("Crear nuevo filme")
 if 'film_added' not in st.session_state:
     st.session_state.film_added = False
 
-if submit and name and company and genre and director:
-    doc_ref = db.collection("movies").document(name)
-    doc_ref.set({
-        "name": name,
-        "company": company,
-        "genre": genre,
-        "director": director
-    })
-    st.session_state.film_added = True
-
-# Mostrar mensaje de éxito si se agregó el filme
-if st.session_state.film_added:
-    st.success(f"El filme '{name}' ha sido agregado correctamente.")
-    st.session_state.film_added = False  # reset para que no se muestre todo el tiempo
+if submit:
+    if name and company and genre and director:
+        st.write("Agregando filme a Firestore...")
+        doc_ref = db.collection("movies").document(name)
+        doc_ref.set({
+            "name": name,
+            "company": company,
+            "genre": genre,
+            "director": director
+        })
+        st.success(f"El filme '{name}' ha sido agregado correctamente.")
+        
+        # Recargar datos para que el nuevo filme aparezca
+        data = load_all_data()
+        
+        # Opcional: actualizar la UI o limpiar campos
+    else:
+        st.warning("Por favor, completa todos los campos para crear un nuevo filme.")
